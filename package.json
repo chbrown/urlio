@@ -1,0 +1,25 @@
+{
+  "name": "urlio",
+  "description": "URL in/out",
+  "version": "0.0.0",
+  "keywords": [
+    "url",
+    "routes",
+    "parse",
+    "stringify"
+  ],
+  "homepage": "https://github.com/chbrown/urlio",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chbrown/urlio.git"
+  },
+  "author": "Christopher Brown <io@henrian.com> (http://henrian.com)",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "babel-core": "^5.0.0",
+    "istanbul": "*",
+    "mocha": "*",
+    "typescript": "*"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES5"
+  },
+  "files": [
+    "shims.d.ts",
+    "index.ts"
+  ]
+}
