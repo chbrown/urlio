@@ -20,5 +20,8 @@
     "istanbul": "*",
     "mocha": "*",
     "typescript": "*"
+  },
+  "scripts": {
+    "test": "make test"
   }
 }
