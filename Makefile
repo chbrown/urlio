@@ -21,4 +21,4 @@ $(BIN)/tsc $(BIN)/_mocha $(BIN)/mocha $(BIN)/istanbul $(BIN)/coveralls:
 
 test: $(JAVASCRIPT) $(BIN)/istanbul $(BIN)/_mocha $(BIN)/coveralls
 	$(BIN)/istanbul cover $(BIN)/_mocha -- $(MOCHA_ARGS) -R spec
-	cat coverage/lcov.info | $(BIN)/coveralls
+	cat coverage/lcov.info | $(BIN)/coveralls || true
