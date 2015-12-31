@@ -7,7 +7,7 @@ all: $(JAVASCRIPT) $(TYPESCRIPT:%.ts=%.d.ts) .npmignore .gitignore
 
 all: index.js index.d.ts
 
-$(BIN)/tsc $(BIN)/_mocha $(BIN)/mocha $(BIN)/istanbul:
+$(BIN)/tsc $(BIN)/_mocha $(BIN)/mocha $(BIN)/istanbul $(BIN)/coveralls:
 	npm install
 
 .npmignore: tsconfig.json
@@ -19,8 +19,6 @@ $(BIN)/tsc $(BIN)/_mocha $(BIN)/mocha $(BIN)/istanbul:
 %.js %.d.ts: %.ts $(BIN)/tsc
 	$(BIN)/tsc -d
 
-test: $(JAVASCRIPT) $(BIN)/mocha
-	$(BIN)/mocha $(MOCHA_ARGS)
-
-coverage: $(JAVASCRIPT) $(BIN)/istanbul $(BIN)/_mocha
+test: $(JAVASCRIPT) $(BIN)/istanbul $(BIN)/_mocha $(BIN)/coveralls
 	$(BIN)/istanbul cover $(BIN)/_mocha -- $(MOCHA_ARGS) -R spec
+	cat coverage/lcov.info | $(BIN)/coveralls
