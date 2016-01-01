@@ -14,7 +14,7 @@ $(BIN)/tsc $(BIN)/_mocha $(BIN)/mocha $(BIN)/istanbul $(BIN)/coveralls:
 	echo $(TYPESCRIPT) Makefile tsconfig.json | tr ' ' '\n' > $@
 
 .gitignore: tsconfig.json
-	echo $(TYPESCRIPT:%.ts=/%.js) $(TYPESCRIPT:%.ts=/%.d.ts) | tr ' ' '\n' > $@
+	echo $(TYPESCRIPT:%.ts=/%.js) $(TYPESCRIPT:%.ts=/%.d.ts) coverage/ | tr ' ' '\n' > $@
 
 %.js %.d.ts: %.ts $(BIN)/tsc
 	$(BIN)/tsc -d
