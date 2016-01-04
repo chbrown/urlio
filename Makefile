@@ -5,8 +5,6 @@ MOCHA_ARGS := --compilers js:babel-core/register tests/
 
 all: $(JAVASCRIPT) $(TYPESCRIPT:%.ts=%.d.ts) .npmignore .gitignore
 
-all: index.js index.d.ts
-
 $(BIN)/tsc $(BIN)/_mocha $(BIN)/mocha $(BIN)/istanbul $(BIN)/coveralls:
 	npm install
 
