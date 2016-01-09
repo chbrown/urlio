@@ -42,7 +42,7 @@ function compilePattern(url: string): {paramNames: string[], regExp: RegExp} {
       paramNames.push('splat');
       return '(.*?)';
     });
-  return {paramNames, regExp: new RegExp(pattern)}; // '^' + pattern + '$'
+  return {paramNames, regExp: new RegExp('^' + pattern + '$')};
 }
 
 /**
