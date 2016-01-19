@@ -38,9 +38,12 @@ function compilePattern(url: string): {paramNames: string[], regExp: RegExp} {
       return '([^/?#]+)';
     })
     // replace * with a non-greedy group that will match anything (or nothing)
-    .replace(/\*/g, (match) => {
+    // replace ** with a greedy group that will match everything (or nothing)
+    // these have to go in the same replace() call because a subsequent
+    // replace() would replace part of the replacement
+    .replace(/\*\*?/g, (match) => {
       paramNames.push('splat');
-      return '(.*?)';
+      return (match === '**') ? '(.*)' : '(.*?)';
     });
   return {paramNames, regExp: new RegExp('^' + pattern + '$')};
 }
