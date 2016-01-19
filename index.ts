@@ -60,7 +60,9 @@ export function parse<T extends Route>(routes: T[], {url, method}: {url: string,
   });
   // find the matching route
   const compareMethod = method !== undefined;
-  const matchingRoute = compiledRoutes.find(route => route.regExp.test(url) && (compareMethod ? method === route.method : true));
+  const matchingRoute = compiledRoutes.find(route => {
+    return route.regExp.test(url) && (!compareMethod || (route.method === method));
+  });
   if (matchingRoute === undefined) {
     return undefined;
   }
