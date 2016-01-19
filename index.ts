@@ -11,7 +11,13 @@ function assign<T, U>(target: T, source: U): T & U {
 export interface Route {
   /** The pattern to match against requested urls. */
   url: string;
-  /** If provided on the route and in the parse method, only routes with matches are returned. */
+  /**
+  If a 'method' field is provided when calling urlio.parse(...), only routes
+  with matching 'method' values are considered. The value should generally be
+  uppercase, since Node.js's http.IncomingMessage#method field is uppercase.
+
+  The special value '*' will match any method.
+  */
   method?: string;
 }
 
@@ -61,7 +67,7 @@ export function parse<T extends Route>(routes: T[], {url, method}: {url: string,
   // find the matching route
   const compareMethod = method !== undefined;
   const matchingRoute = compiledRoutes.find(route => {
-    return route.regExp.test(url) && (!compareMethod || (route.method === method));
+    return route.regExp.test(url) && (!compareMethod || (route.method === method || route.method === '*'));
   });
   if (matchingRoute === undefined) {
     return undefined;
