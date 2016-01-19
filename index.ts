@@ -83,7 +83,7 @@ export function stringify(route: Route, params: Params = {}) {
   return route.url
     // replace :varName segments with the named value in params
     .replace(/:(\w+)/g, (match, group1) => params[group1])
-    // replace * with the value of the param named 'splat' (where undefined evaluates to '')
+    // replace * or ** with the value of the param named 'splat' (where undefined evaluates to '')
     // TODO: handle multiple splats?
-    .replace(/\*/g, (match) => (params['splat'] === undefined) ? '' : params['splat']);
+    .replace(/\*\*?/g, (match) => (params['splat'] === undefined) ? '' : params['splat']);
 }
