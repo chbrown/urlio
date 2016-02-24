@@ -20,4 +20,4 @@ test: $(TYPESCRIPT:%.ts=%.js) $(BIN)/istanbul $(BIN)/_mocha $(BIN)/coveralls
 	cat coverage/lcov.info | $(BIN)/coveralls || true
 
 clean:
-	rm -f $(TYPESCRIPT:%.ts=%.d.ts) $(TYPESCRIPT:%.ts=%.js)
+	rm -f $(TYPESCRIPT:%.ts=%.js) $(TYPESCRIPT:%.ts=%.d.ts)
