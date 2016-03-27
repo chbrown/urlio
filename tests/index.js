@@ -6,11 +6,13 @@ import {parse, stringify} from '..';
 describe('basic products routes', () => {
 
   const productsImportRoute = {id: 'productsImport', url: '/products/import'};
+  const productsSEORoute =    {id: 'productsSEO',    url: '/products/{description:.+}-{productId:[0-9]+}'};
   const productsTableRoute =  {id: 'productsTable',  url: '/products'};
   const purchaseEditorRoute = {id: 'purchaseEditor', url: '/purchase/:purchaseId'};
   const homeRoute =           {id: 'home',           url: '/*'};
   const routes = [
     productsImportRoute,
+    productsSEORoute,
     productsTableRoute,
     purchaseEditorRoute,
     homeRoute,
@@ -20,6 +22,12 @@ describe('basic products routes', () => {
     let {id, params} = parse(routes, {url: '/products'});
     strictEqual(id, 'productsTable');
     deepEqual(params, {});
+  });
+
+  it('should find the "productsSEO" route', () => {
+    let {id, params} = parse(routes, {url: '/products/ChinaVase-456'});
+    strictEqual(id, 'productsSEO');
+    deepEqual(params, {description: 'ChinaVase', productId: '456'});
   });
 
   it('should find the "purchaseEditor" route', () => {

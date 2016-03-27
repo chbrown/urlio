@@ -43,6 +43,12 @@ function compilePattern(url: string): {paramNames: string[], regExp: RegExp} {
       paramNames.push(group1);
       return '([^/?#]+)';
     })
+    // replace {varName:pattern} with a group that uses the specified pattern
+    // `pattern` should not contain any curly braces or capturing groups
+    .replace(/\{(\w+):(.+?)\}/g, (match, group1, group2) => {
+      paramNames.push(group1);
+      return `(${group2})`;
+    })
     // replace * with a non-greedy group that will match anything (or nothing)
     // replace ** with a greedy group that will match everything (or nothing)
     // these have to go in the same replace() call because a subsequent
