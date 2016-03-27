@@ -74,13 +74,38 @@ describe('users routes with no-wildcard', () => {
   });
 
   it('should find the userView route when specifying no method', () => {
-    let {id} = parse(routes, {url: '/users/100'});
+    let {id, params} = parse(routes, {url: '/users/100'});
     strictEqual(id, 'userView');
+    deepEqual(params, {id: '100'});
   });
 
   it('should find the userDelete route when specifying method: "DELETE"', () => {
     let {id} = parse(routes, {url: '/users/100', method: 'DELETE'});
     strictEqual(id, 'userDelete');
+  });
+
+});
+
+describe('users routes with non-lazy catch-all', () => {
+
+  const routes = [
+    {id: 'userView', url: '/users/:id'},
+    {id: 'userLongform', url: '/users/**'},
+  ];
+
+  it('should find the userView route when specifying a simple id', () => {
+    let {id} = parse(routes, {url: '/users/100'});
+    strictEqual(id, 'userView');
+  });
+
+  it('should find the userLongform route for other urls', () => {
+    let {id} = parse(routes, {url: '/users/1/create'});
+    strictEqual(id, 'userLongform');
+  });
+
+  it('should find the userLongform route for other urls (2)', () => {
+    let {id} = parse(routes, {url: '/users/1/sessions/2'});
+    strictEqual(id, 'userLongform');
   });
 
 });
