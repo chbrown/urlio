@@ -1,4 +1,4 @@
-import assert from 'assert';
+import {strictEqual, deepEqual} from 'assert';
 import {describe, it} from 'mocha';
 
 import {parse, stringify} from '..';
@@ -18,36 +18,36 @@ describe('basic products routes', () => {
 
   it('should find the "productsTable" route', () => {
     let {id, params} = parse(routes, {url: '/products'});
-    assert.equal(id, 'productsTable');
-    assert.deepEqual(params, {});
+    strictEqual(id, 'productsTable');
+    deepEqual(params, {});
   });
 
   it('should find the "purchaseEditor" route', () => {
     let {id, params} = parse(routes, {url: '/purchase/123'});
-    assert.equal(id, 'purchaseEditor');
-    assert.deepEqual(params, {purchaseId: '123'});
+    strictEqual(id, 'purchaseEditor');
+    deepEqual(params, {purchaseId: '123'});
   });
 
   it('should serialize the "purchaseEditor" route', () => {
     // params' values can be anything implicitly convertible to a string
     // TODO: test both strings and numbers?
     let url = stringify(purchaseEditorRoute, {purchaseId: 456});
-    assert.equal(url, '/purchase/456');
+    strictEqual(url, '/purchase/456');
   });
 
   it('should serialize the "productsImport" route with no params', () => {
     let url = stringify(productsImportRoute);
-    assert.equal(url, '/products/import');
+    strictEqual(url, '/products/import');
   });
 
   it('should serialize the "home" route with no splat value', () => {
     let url = stringify(homeRoute, {});
-    assert.equal(url, '/');
+    strictEqual(url, '/');
   });
 
   it('should serialize the "home" route with the splat value "dashboard"', () => {
     let url = stringify(homeRoute, {splat: 'dashboard'});
-    assert.equal(url, '/dashboard');
+    strictEqual(url, '/dashboard');
   });
 
 });
@@ -62,17 +62,17 @@ describe('users routes with no-wildcard', () => {
 
   it('should find no matching route for a non-existent URL', () => {
     let route = parse(routes, {url: '/'});
-    assert.equal(route, undefined);
+    strictEqual(route, undefined);
   });
 
   it('should find the userView route when specifying no method', () => {
     let {id} = parse(routes, {url: '/users/100'});
-    assert.equal(id, 'userView');
+    strictEqual(id, 'userView');
   });
 
   it('should find the userDelete route when specifying method: "DELETE"', () => {
     let {id} = parse(routes, {url: '/users/100', method: 'DELETE'});
-    assert.equal(id, 'userDelete');
+    strictEqual(id, 'userDelete');
   });
 
 });
