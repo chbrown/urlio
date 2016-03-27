@@ -34,8 +34,8 @@ with two fields, e.g.,
     }
 */
 function compilePattern(url: string): {paramNames: string[], regExp: RegExp} {
-  let paramNames: string[] = [];
-  let pattern = url
+  const paramNames: string[] = [];
+  const pattern = url
     // escape forward slashes (/)
     .replace(/\//g, '\\/')
     // replace :varName segments with a group that matches everything but /, ?, and #
@@ -59,7 +59,7 @@ Given a path, find the matching Route and extract the values of its params for t
 Returns undefined if no routes match.
 */
 export function parse<T extends Route>(routes: T[], {url, method}: {url: string, method?: string}): T & {params: Params} {
-  let params: Params = {};
+  const params: Params = {};
   // compile the routes
   const compiledRoutes = routes.map(route => {
     return assign(compilePattern(route.url), route);
