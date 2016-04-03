@@ -1,3 +1,4 @@
+tests/index.ts
 index.ts
 Makefile
 tsconfig.json
