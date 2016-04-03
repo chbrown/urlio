@@ -21,6 +21,11 @@ export interface Route {
   method?: string;
 }
 
+export interface CompiledRoute {
+  paramNames: string[];
+  regExp: RegExp;
+}
+
 export interface Params {
   [index: string]: string;
 }
@@ -33,7 +38,7 @@ with two fields, e.g.,
       regExp: /\/users\/([^/?#]+)\/([^/?#]+)/,
     }
 */
-function compilePattern(url: string): {paramNames: string[], regExp: RegExp} {
+function compilePattern(url: string): CompiledRoute {
   const paramNames: string[] = [];
   const pattern = url
     // escape forward slashes (/)
@@ -61,15 +66,19 @@ function compilePattern(url: string): {paramNames: string[], regExp: RegExp} {
 }
 
 /**
-Given a path, find the matching Route and extract the values of its params for that path.
-Returns undefined if no routes match.
+Use the internal compilePattern function to compile all routes, which extends
+each route with paramNames and regExp properties.
 */
-export function parse<T extends Route>(routes: T[], {url, method}: {url: string, method?: string}): T & {params: Params} {
+export function compileRoutes<T extends Route>(routes: T[]): (T & CompiledRoute)[] {
+  return routes.map(route => assign(compilePattern(route.url), route));
+}
+
+/**
+Called by parse() after compiling routes, but can be called directly after
+running compileRoutes() on your raw routes.
+*/
+export function parsePrecompiled<T extends Route & CompiledRoute>(compiledRoutes: T[], {url, method}: {url: string, method?: string}): T & {params: Params} {
   const params: Params = {};
-  // compile the routes
-  const compiledRoutes = routes.map(route => {
-    return assign(compilePattern(route.url), route);
-  });
   // find the matching route
   const compareMethod = method !== undefined;
   const matchingRoute = compiledRoutes.find(route => {
@@ -88,8 +97,17 @@ export function parse<T extends Route>(routes: T[], {url, method}: {url: string,
 }
 
 /**
-Given a route and params (like those that would be extracted from it),
-return the matching url.
+Given a path, find the matching Route and extract the values of its params for
+that path. Returns undefined if no routes match.
+*/
+export function parse<T extends Route>(routes: T[], {url, method}: {url: string, method?: string}): T & {params: Params} {
+  const compiledRoutes = compileRoutes(routes);
+  return parsePrecompiled(compiledRoutes, {url, method});
+}
+
+/**
+Given a route and params (like those that would be extracted from it), return
+the matching url.
 */
 export function stringify(route: Route, params: Params = {}) {
   return route.url
