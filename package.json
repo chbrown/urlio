@@ -16,11 +16,11 @@
   "author": "Christopher Brown <io@henrian.com> (http://henrian.com)",
   "license": "MIT",
   "devDependencies": {
-    "coveralls": "*",
-    "istanbul": "*",
-    "mocha": "*",
-    "mocha-lcov-reporter": "*",
-    "typescript": "*"
+    "coveralls": "2.11.9",
+    "istanbul": "0.4.2",
+    "mocha": "2.4.5",
+    "mocha-lcov-reporter": "1.2.0",
+    "typescript": "1.8.9"
   },
   "scripts": {
     "test": "make test"
