@@ -20,6 +20,9 @@
     "typescript": "1.8.9"
   },
   "scripts": {
-    "test": "make test"
+    "pretest": "tsc",
+    "test": "istanbul cover _mocha -- tests/ -R spec",
+    "posttest": "cat coverage/lcov.info | coveralls || true",
+    "clean": "tsc -d --listEmittedFiles | sed 's/^TSFILE: //' | xargs rm -v"
   }
 }
