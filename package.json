@@ -13,16 +13,15 @@
   "author": "Christopher Brown <io@henrian.com> (http://henrian.com)",
   "license": "MIT",
   "devDependencies": {
-    "coveralls": "2.11.9",
-    "istanbul": "0.4.2",
-    "mocha": "2.4.5",
-    "mocha-lcov-reporter": "1.2.0",
-    "typescript": "1.8.9"
+    "ava": "1.0.0-beta.8",
+    "coveralls": "3.0.2",
+    "nyc": "13.0.1",
+    "typescript": "3.0.3"
   },
   "scripts": {
     "pretest": "tsc",
-    "test": "istanbul cover _mocha -- -R spec",
-    "posttest": "cat coverage/lcov.info | coveralls || true",
+    "test": "nyc ava",
+    "posttest": "nyc report --reporter=text-lcov | coveralls || true",
     "clean": "tsc -d --listEmittedFiles | sed 's/^TSFILE: //' | xargs rm -v"
   }
 }
