@@ -17,7 +17,8 @@ export interface CompiledRoute {
 }
 
 export interface Params {
-  [index: string]: string;
+  /** params' values can be anything implicitly convertible to a string */
+  [index: string]: string | number;
   splat?: string;
 }
 
@@ -104,7 +105,7 @@ the matching url.
 export function stringify(route: Route, params: Params = {}) {
   return route.url
     // replace :varName segments with the named value in params
-    .replace(/:(\w+)/g, (match, group1) => params[group1])
+    .replace(/:(\w+)/g, (match, group1) => String(params[group1]))
     // replace * or ** with the value of the param named 'splat' (where undefined evaluates to '')
     // TODO: handle multiple splats?
     .replace(/\*\*?/g, match => (params.splat === undefined) ? '' : params.splat);
