@@ -21,7 +21,7 @@
   },
   "scripts": {
     "pretest": "tsc",
-    "test": "istanbul cover _mocha -- tests/ -R spec",
+    "test": "istanbul cover _mocha -- -R spec",
     "posttest": "cat coverage/lcov.info | coveralls || true",
     "clean": "tsc -d --listEmittedFiles | sed 's/^TSFILE: //' | xargs rm -v"
   }

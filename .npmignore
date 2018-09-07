@@ -3,4 +3,4 @@
 .travis.yml
 tsconfig.json
 coverage/
-tests/
+test/

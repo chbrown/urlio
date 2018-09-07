@@ -4,7 +4,7 @@
     "target": "ES5"
   },
   "files": [
-    "tests/index.ts",
+    "test/index.ts",
     "shims.d.ts",
     "index.ts"
   ]

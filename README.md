@@ -10,7 +10,7 @@ A module for matching URLs against patterns with a syntax inspired by Ember.js (
 
 For now, in its very alpha state, it supports `:var` and `*` (splat) segments in addition to literal contexts.
 
-See the [tests](tests/index.js) for examples.
+See the [tests](test/index.ts) for examples.
 
 
 ## License
