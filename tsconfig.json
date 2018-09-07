@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "ES5"
+    "target": "ES6"
   },
   "files": [
     "test/index.ts",
-    "shims.d.ts",
     "index.ts"
   ]
 }
