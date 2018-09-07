@@ -65,7 +65,8 @@ function compilePattern(url: string): CompiledRoute {
       paramNames.push('splat');
       return (match === '**') ? '(.*)' : '(.*?)';
     });
-  return {paramNames, regExp: new RegExp(`^${pattern}$`)};
+  const regExp = new RegExp(`^${pattern}$`);
+  return {paramNames, regExp};
 }
 
 /**
