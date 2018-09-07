@@ -1,5 +1,3 @@
-/tests/index.js
-/index.js
-/tests/index.d.ts
-/index.d.ts
+*.js
+*.d.ts
 coverage/
