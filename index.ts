@@ -5,7 +5,7 @@ function assign<T, U>(target: T, source: U): T & U {
   for (var key in source) {
     target[key] = source[key];
   }
-  return <any>target;
+  return target as any;
 }
 
 export interface Route {
