@@ -1,15 +1,3 @@
-/**
-Half-hearted (two-hearted?) shim for Object.assign.
-*/
-function assign<T, U>(target: T, source: U): T & U {
-  for (const key in source) {
-    if (source.hasOwnProperty(key)) {
-      target[key] = source[key];
-    }
-  }
-  return target as any;
-}
-
 export interface Route {
   /** The pattern to match against requested urls. */
   url: string;
@@ -74,7 +62,7 @@ Use the internal compilePattern function to compile all routes, which extends
 each route with paramNames and regExp properties.
 */
 export function compileRoutes<T extends Route>(routes: T[]): (T & CompiledRoute)[] {
-  return routes.map(route => assign(compilePattern(route.url), route));
+  return routes.map(route => Object.assign(compilePattern(route.url), route));
 }
 
 /**
@@ -97,7 +85,7 @@ export function parsePrecompiled<T extends Route & CompiledRoute>(compiledRoutes
   matchingRoute.paramNames.map((paramName, i) => {
     params[paramName] = match[i + 1];
   });
-  return assign({params}, matchingRoute);
+  return Object.assign({params}, matchingRoute);
 }
 
 /**
