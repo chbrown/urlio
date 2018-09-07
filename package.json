@@ -9,10 +9,7 @@
     "stringify"
   ],
   "homepage": "https://github.com/chbrown/urlio",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/chbrown/urlio.git"
-  },
+  "repository": "github:chbrown/urlio",
   "author": "Christopher Brown <io@henrian.com> (http://henrian.com)",
   "license": "MIT",
   "devDependencies": {
