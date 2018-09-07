@@ -19,6 +19,7 @@
     "typescript": "3.0.3"
   },
   "scripts": {
+    "prepare": "tsc -d",
     "pretest": "tsc",
     "test": "nyc ava",
     "posttest": "nyc report --reporter=text-lcov | coveralls || true",
