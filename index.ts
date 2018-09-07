@@ -2,8 +2,10 @@
 Half-hearted (two-hearted?) shim for Object.assign.
 */
 function assign<T, U>(target: T, source: U): T & U {
-  for (var key in source) {
-    target[key] = source[key];
+  for (const key in source) {
+    if (source.hasOwnProperty(key)) {
+      target[key] = source[key];
+    }
   }
   return target as any;
 }
@@ -28,6 +30,7 @@ export interface CompiledRoute {
 
 export interface Params {
   [index: string]: string;
+  splat?: string;
 }
 
 /**
@@ -58,11 +61,11 @@ function compilePattern(url: string): CompiledRoute {
     // replace ** with a greedy group that will match everything (or nothing)
     // these have to go in the same replace() call because a subsequent
     // replace() would replace part of the replacement
-    .replace(/\*\*?/g, (match) => {
+    .replace(/\*\*?/g, match => {
       paramNames.push('splat');
       return (match === '**') ? '(.*)' : '(.*?)';
     });
-  return {paramNames, regExp: new RegExp('^' + pattern + '$')};
+  return {paramNames, regExp: new RegExp(`^${pattern}$`)};
 }
 
 /**
@@ -115,5 +118,5 @@ export function stringify(route: Route, params: Params = {}) {
     .replace(/:(\w+)/g, (match, group1) => params[group1])
     // replace * or ** with the value of the param named 'splat' (where undefined evaluates to '')
     // TODO: handle multiple splats?
-    .replace(/\*\*?/g, (match) => (params['splat'] === undefined) ? '' : params['splat']);
+    .replace(/\*\*?/g, match => (params.splat === undefined) ? '' : params.splat);
 }
